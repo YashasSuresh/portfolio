@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yashas Suresh - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+            scroll-behavior: smooth;
+        }
+        .light {
+            background-color: #E6F3FF;
+            background: linear-gradient(to bottom right, #E6F3FF, #D1E5FF);
+            color: #212529;
+        }
+        .dark {
+            background-color: #1A202C;
+            background: linear-gradient(to bottom right, #1A202C, #0D1117);
+            color: #E2E8F0;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .card {
+            background-color: rgba(45, 55, 72, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        .dark .card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+        .nav-link {
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            position: relative;
+        }
+        .nav-link:hover {
+            transform: scale(1.1);
+            color: #2299FF;
+        }
+        .dark .nav-link:hover {
+            color: #63B3ED;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2299FF;
+            transition: width 0.3s ease-in-out;
+        }
+        .dark .nav-link::after {
+            background-color: #63B3ED;
+        }
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Skill Grid Styling with color */
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background-color: rgba(255, 255, 255, 0.6);
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .dark .skill-item {
+            background-color: rgba(45, 55, 72, 0.7);
+        }
+        .skill-item:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+        .dark .skill-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        .skill-title {
+            color: #2299FF;
+            font-weight: 600;
+        }
+        .dark .skill-title {
+            color: #63B3ED;
+        }
+        
+        .heading-underline {
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.25rem;
+        }
+        .heading-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #2299FF, #A3A3FF);
+            border-radius: 2px;
+        }
+        .dark .heading-underline::after {
+             background: linear-gradient(to right, #63B3ED, #A3A3FF);
+        }
+    </style>
+</head>
+<body class="light">
+    <!-- Header with Theme Toggle and Nav Bar -->
+    <header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-4xl">
+        <div class="flex justify-center sm:justify-between items-center p-6 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg shadow-lg transition-colors duration-400">
+            <nav class="flex-1 flex justify-center space-x-6 font-medium">
+                <a href="#about-section" class="nav-link">About</a>
+                <a href="#education-section" class="nav-link">Education</a>
+                <a href="#experience-section" class="nav-link">Experience</a>
+                <a href="#projects-section" class="nav-link">Projects</a>
+                <a href="#skills-section" class="nav-link">Skills</a>
+            </nav>
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="p-2 rounded-full shadow-lg transition-colors duration-300 bg-gray-200 dark:bg-gray-700 absolute right-6 sm:static">
+                <svg id="moon-icon" class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 24 24" stroke="none">
+                    <path d="M21.73 18.23c-1.39-1.39-3.23-2.17-5.18-2.17s-3.79.78-5.18 2.17a7.29 7.29 0 0 1 0-10.35c1.39-1.39 3.23-2.17 5.18-2.17s3.79.78 5.18 2.17c.56.56.88 1.3.88 2.1s-.32 1.54-.88 2.1a1 1 0 0 1-1.41 1.41c-.48-.48-.75-1.12-.75-1.8s.27-1.32.75-1.8c.84-.84 1.96-1.3 3.16-1.3s2.32.46 3.16 1.3c.6.6.94 1.4.94 2.26a1 1 0 0 1-1.41 1.41c-1.74-1.74-4.57-1.74-6.31 0a2.49 2.49 0 0 0-3.53 0c-1.22 1.22-1.9 2.85-1.9 4.58 0 1.73.68 3.36 1.9 4.58a1 1 0 0 1-1.41 1.41c-1.22-1.22-1.9-2.85-1.9-4.58 0-1.73-.68-3.36-1.9-4.58l-1.41 1.41c1.22 1.22 1.9 2.85 1.9 4.58z"/>
+                </svg>
+                <svg id="sun-icon" class="w-6 h-6 text-yellow-500 hidden" fill="currentColor" viewBox="0 0 24 24" stroke="none">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="main-container relative pt-32 p-8 space-y-16">
+        <!-- Hero Section for Name and Contact Info -->
+        <section id="hero-section" class="card p-8 rounded-xl text-center animate-fade-in-down">
+            <h1 class="text-5xl md:text-6xl font-bold mb-2">Yashas Suresh</h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4">Computer Engineering Student at Iowa State University</p>
+            <div class="flex justify-center space-x-4 mb-6">
+                <a href="http://www.linkedin.com/in/yashas-suresh" target="_blank" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.768s.784-1.768 1.75-1.768 1.75.79 1.75 1.768-.784 1.768-1.75 1.768zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                    </svg>
+                    <span class="font-medium">LinkedIn</span>
+                </a>
+                <span class="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 11.5c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zM12 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm0-16.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5zm.001 0c.265 0 .5-.235.5-.5s-.235-.5-.5-.5-.5.235-.5.5.235.5.5.5zm0 13c-.828 0-1.5-.672-1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zM12 5.5c-.828 0-1.5-.672-1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zM12 18.5c-.828 0-1.5-.672-1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zM12 15c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/>
+                    </svg>
+                    <span class="font-medium">Ames, IA</span>
+                </span>
+            </div>
+        </section>
+        
+        <!-- About Me Section -->
+        <section id="about-section" class="card p-8 rounded-xl">
+            <h2 class="text-3xl font-bold mb-6 heading-underline text-blue-600 dark:text-blue-400">About Me</h2>
+            <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                I'm Yashas Suresh, a Computer Engineering graduate student at Iowa State University. I love building smart, efficient systems that solve real-world problems. My experience as a Graduate Teaching Assistant has allowed me to mentor over 60 students, helping them tackle complex projects in Python, C++, and Java. My projects, from creating an IoT-based temperature monitor to automating a seed sowing machine, demonstrate my hands-on skills in embedded systems and my commitment to developing effective, low-power solutions. I'm passionate about technology and always eager to take on new challenges.
+            </p>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education-section" class="card p-8 rounded-xl">
+            <h2 class="text-3xl font-bold mb-6 heading-underline text-blue-600 dark:text-blue-400">Education</h2>
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-xl font-semibold">Master Of Science, Computer Engineering</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Iowa State University | Aug 2023 - Dec 2025</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Bachelors, Computer Science and Engineering</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Presidency University, India | Aug 2019 - Jun 2023</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience-section" class="card p-8 rounded-xl">
+            <h2 class="text-3xl font-bold mb-6 heading-underline text-blue-600 dark:text-blue-400">Experience</h2>
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-xl font-semibold">Graduate Teaching Assistant</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Iowa State University | Aug 2024-Dec 2024</p>
+                    <ul class="list-disc list-inside mt-4 text-gray-700 dark:text-gray-300 space-y-2">
+                        <li>Mentored **60+ students** in Embedded Systems and Deep Learning, providing hands-on lab and project support.</li>
+                        <li>Led Android development labs using **Java, Android Studio, and Firebase**, guiding students through implementation and debugging.</li>
+                        <li>Boosted student understanding of Deep Learning concepts by **30%** by assisting with debugging complex code in VS Code and Google Colab.</li>
+                        <li>Conducted weekly office hours to address challenges in **Python, C++, and Java**, with a focus on hardware-software interfacing.</li>
+                        <li>Received a 4.6/5.0 student feedback score for clarity and responsiveness during weekly assessments and exams.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects-section" class="card p-8 rounded-xl">
+            <h2 class="text-3xl font-bold mb-6 heading-underline text-blue-600 dark:text-blue-400">Projects</h2>
+            <div class="space-y-10">
+                <div>
+                    <h3 class="text-xl font-semibold">IoT-based Temperature Monitoring System using Contiki OS and UDP</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Oct 2024-Dec 2024</p>
+                    <ul class="list-disc list-inside mt-4 text-gray-700 dark:text-gray-300 space-y-2">
+                        <li>Engineered a low-power IoT network with Contiki OS, integrating a temperature sensor and using Python for real-time data validation.</li>
+                        <li>Developed a UDP-based communication protocol, achieving a **30% reduction in network overhead**.</li>
+                        <li>Designed a multi-protocol system architecture incorporating **6LoWPAN, RPL, and CoAP** for efficient IoT communication.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Analysis and Mitigation of Sinkhole attacks in RPL-based Networks</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Mar 2024-May 2024</p>
+                    <ul class="list-disc list-inside mt-4 text-gray-700 dark:text-gray-300 space-y-2">
+                        <li>Simulated sinkhole attacks in Contiki OS and implemented intrusion detection techniques.</li>
+                        <li>Achieved a **70% reduction in malicious activity** and mitigated a 40% drop in network throughput under attack.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Automation of Seed Sowing Machine using Internet of Things</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Jan 2024-Mar 2024</p>
+                    <ul class="list-disc list-inside mt-4 text-gray-700 dark:text-gray-300 space-y-2">
+                        <li>Integrated ThingSpeak IoT cloud platform, improving the microcontroller's accuracy by **20%**.</li>
+                        <li>Utilized **MATLAB-based algorithms** to process sensor data, leading to a **15% improvement in plant density consistency**.</li>
+                        <li>Developed and deployed **Arduino/ESP32 firmware** for automated seed sowing.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Comparative Analysis of Machine Learning Models for Human Activity Recognition</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Oct 2023 - Dec 2023</p>
+                    <ul class="list-disc list-inside mt-4 text-gray-700 dark:text-gray-300 space-y-2">
+                        <li>Achieved **96% accuracy** in detecting human activities using a **DNN** model on smartphone sensor data.</li>
+                        <li>Evaluated multiple models, including Decision Tree, LSTM-CNN, and Random Forest, to identify the most effective solution.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills-section" class="card p-8 rounded-xl">
+            <h2 class="text-3xl font-bold mb-6 heading-underline text-blue-600 dark:text-blue-400">Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="skill-item">
+                    <h3 class="skill-title text-lg font-semibold">Programming & Tools</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Python, C, C++, MATLAB, Firebase, Android Studio, VS Code, Google Colab</p>
+                </div>
+                <div class="skill-item">
+                    <h3 class="skill-title text-lg font-semibold">Embedded Systems & Automation</h3>
+                    <p class="text-gray-700 dark:text-gray-300">ESP32, Arduino, FreeRTOS, Contiki OS, Test Automation</p>
+                </div>
+                <div class="skill-item">
+                    <h3 class="skill-title text-lg font-semibold">Protocols & Interfaces</h3>
+                    <p class="text-gray-700 dark:text-gray-300">I2C, UART, CAN, GPIO, REST APIs, UDP</p>
+                </div>
+                <div class="skill-item">
+                    <h3 class="skill-title text-lg font-semibold">Operating Systems & Utilities</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Linux (Ubuntu), macOS, Wireshark, Nmap</p>
+                </div>
+                <div class="skill-item">
+                    <h3 class="skill-title text-lg font-semibold">Machine Learning</h3>
+                    <p class="text-700 dark:text-gray-300">PyTorch, TensorFlow, DNN, LSTM-CNN</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light')) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+        });
+
+        // Add active class to nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight;
+                const sectionTop = current.offsetTop - 120; // Offset for fixed header
+                const sectionId = current.getAttribute('id');
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').includes(sectionId)) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
